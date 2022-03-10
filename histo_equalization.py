@@ -29,7 +29,14 @@ def histo_equalization(image_path, save_path):
     cv2.imwrite(os.path.join(os.getcwd(), save_path), converted_image)
     print(f'saved result to {os.path.join(os.getcwd(), save_path)}')
 
+
 def cv2_histogram_equalization(image_path, save_path):
+    img = cv2.imread(image_path, 0)
+    equ = cv2.equalizeHist(img)
+    converted_image = cv2.cvtColor(equ, cv2.COLOR_GRAY2RGB)
+    cv2.imwrite(save_path, converted_image)
+
+def cv2_histogram_equalization_comparison(image_path, save_path):
     img = cv2.imread(image_path, 0)
     equ = cv2.equalizeHist(img)
     res = np.hstack((img, equ))  # stacking images side-by-side
@@ -38,18 +45,18 @@ def cv2_histogram_equalization(image_path, save_path):
 
 
 def main():
-    image_dir = os.path.join(os.getcwd(), '../Datasets/2688_ChestX_augmented_ultmax/2688_augmented/images/test')
-    save_dir = os.path.join(os.getcwd(), '../Datasets/2688_ChestX_augmented_ultmax/cv2_2688_augmented_hist_eq/images/test')
-
-    # image_paths = os.listdir(image_dir)
-    # for image_path in image_paths:
-    #     image_filename = os.path.basename(image_path)
-    #     histo_equalization(os.path.join(os.getcwd(), image_dir, image_path), os.path.join(save_dir, image_filename))
+    image_dir = os.path.join(os.getcwd(), '../Datasets/2688_ChestX_augmented_ultmax/ChestX_augmented/images/test')
+    save_dir = os.path.join(os.getcwd(), '../Datasets/histo_equalization/ChestX/images/test')
 
     image_paths = os.listdir(image_dir)
     for image_path in image_paths:
         image_filename = os.path.basename(image_path)
         cv2_histogram_equalization(os.path.join(os.getcwd(), image_dir, image_path), os.path.join(save_dir, image_filename))
+
+    # image_paths = os.listdir(image_dir)
+    # for image_path in image_paths:
+    #     image_filename = os.path.basename(image_path)
+    #     cv2_histogram_equalization(os.path.join(os.getcwd(), image_dir, image_path), os.path.join(save_dir, image_filename))
 
 if __name__ == '__main__':
     main()

@@ -24,8 +24,8 @@ def separate_coco(train_img_path, val_img_path, test_img_path, json_path, save_p
             test_img_list.append(int(os.path.splitext(os.path.basename(img))[0]))
 
 
-    with open(json_path) as json_f:
-        coco_all_json = json.load(json_f)
+    with open(json_path, encoding='utf-8') as json_f:
+        coco_all_json = json.load(json_f, )
         coco_all_json_info = coco_all_json['info']
         coco_all_json_licenses = coco_all_json['licenses']
         coco_all_json_categories = coco_all_json['categories']
@@ -97,12 +97,12 @@ def separate_coco(train_img_path, val_img_path, test_img_path, json_path, save_p
 
 
 if __name__ == '__main__':
-    train_img_path = os.path.join(os.getcwd(), './2688_train')
-    val_img_path = os.path.join(os.getcwd(), './2688_val')
-    test_img_path = os.path.join(os.getcwd(), './2688_test')
+    train_img_path = os.path.join(os.getcwd(), './ChestX_train')
+    val_img_path = os.path.join(os.getcwd(), './ChestX_val')
+    test_img_path = os.path.join(os.getcwd(), './ChestX_test')
 
-    json_path = os.path.join(os.getcwd(), './2688_merged_coco.json')
+    json_path = os.path.join(os.getcwd(), './ChestX_relabling/ChestX_relabling.json')
 
-    save_path = os.path.join(os.getcwd(), './2688_separated_jsons')
+    save_path = os.path.join(os.getcwd(), './ChestX_relabling/')
 
-    separate_coco(train_img_path, val_img_path, test_img_path, json_path, save_path, ext='.jpg')
+    separate_coco(train_img_path, val_img_path, test_img_path, json_path, save_path, ext='.png')

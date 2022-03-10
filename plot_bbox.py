@@ -33,7 +33,7 @@ def annotateRectangle(img_dir, label_dir, save_path, ext='png', color=(0, 255, 0
             print(f"saved result to {image_save_path}")
 
 if __name__ == '__main__':
-    img_dir = os.path.join(os.getcwd(), '../progress_report/20220215/ChestX_use_2688')
-    label_dir = os.path.join(os.getcwd(), '../Datasets/2688_ChestX_augmented_ultmax/2688_augmented/labels/test')
-    save_path = os.path.join(os.getcwd(), '../progress_report/20220215/ChestX_use_2688')
+    img_dir = os.path.join(os.getcwd(), './yolov4_2688_plus_ChestX_relabling_histo/images/train')
+    label_dir = os.path.join(os.getcwd(), './2688_plus_ChestX_relabling_histo/labels/train')
+    save_path = os.path.join(os.getcwd(), './yolov4_2688_plus_ChestX_relabling_histo/images/train_ans')
     annotateRectangle(img_dir, label_dir, save_path, ext='jpg', color=(0, 0, 255))

@@ -56,8 +56,8 @@ def convertCategories(coco_path, save_path):
 
 
 if __name__ == '__main__':
-    coco_json1_path = os.path.join(os.getcwd(), './2688_augmented/val.json')
-    coco_json2_path = os.path.join(os.getcwd(), './ChestX_augmented/val.json')
-    save_path = os.path.join(os.getcwd(), './2688_plus_ChestX_augmented/val.json')
+    coco_json1_path = os.path.join(os.getcwd(), './ChestX_relabling/annotations/ChestX_relabling_test_augmented.json')
+    coco_json2_path = os.path.join(os.getcwd(), './2688_augmented/test.json')
+    save_path = os.path.join(os.getcwd(), './2688_plus_ChestX_relabling_augmented/test.json')
     merge_coco(coco_json1_path, coco_json2_path, save_path)
     #convertCategories(coco_json2_path, coco_json2_path)

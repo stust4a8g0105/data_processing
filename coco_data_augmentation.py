@@ -93,7 +93,7 @@ def rotate_bbox(origin, annotation, angle):
 
 
 # styles = [[angle, flip], [angle, flip] ...]
-def coco_data_augmentation(img_path, json_path, img_save_path, json_save_path, styles, keep_size=True):
+def coco_data_augmentation(img_path, json_path, img_save_path, json_save_path, styles, keep_size=True, json_encoding='utf-8'):
     img_file_names = []
     for img_file_name in os.listdir(img_path):
         img_file_names.append(os.path.basename(img_file_name))
@@ -105,7 +105,7 @@ def coco_data_augmentation(img_path, json_path, img_save_path, json_save_path, s
 
     image_shape_cache = {}
 
-    with open(json_path) as json_f:
+    with open(json_path, encoding=json_encoding) as json_f:
         coco_json = json.load(json_f)
         coco_info = coco_json['info']
         coco_licenses = coco_json['licenses']
@@ -228,8 +228,8 @@ def coco_data_augmentation(img_path, json_path, img_save_path, json_save_path, s
 
 if __name__ == '__main__':
     image_path = os.path.join(os.getcwd(), './ChestX_test')
-    json_path = os.path.join(os.getcwd(), './ChestX_separated_jsons/test.json')
-    image_save_path = os.path.join(os.getcwd(), './ChestX_augmented/images/test')
-    json_save_path = os.path.join(os.getcwd(), './ChestX_augmented/test.json')
+    json_path = os.path.join(os.getcwd(), './ChestX_relabling/ChestX_relabling_test_original.json')
+    image_save_path = os.path.join(os.getcwd(), './ChestX_relabling/images/test')
+    json_save_path = os.path.join(os.getcwd(), './ChestX_relabling/annotations/ChestX_relabling_test_augmented.json')
     styles = [[0, False], [5, False], [10, False], [-5, False], [-10, False], [0, True], [5, True], [10, True], [-5, True], [-10, True]]
     coco_data_augmentation(image_path, json_path, image_save_path, json_save_path, styles)
