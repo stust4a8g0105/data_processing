@@ -13,7 +13,7 @@ def calcStdMean(image_path):
         print(f'Channel {channels[c]} std: {single_channel_std}, mean: {single_channel_mean}')
 
 def main():
-    image_path = os.path.join(os.getcwd(), "./2688_plus_ChestX_relabling_histo/images/2688_test/1006412240.jpg")
+    image_path = os.path.join(os.getcwd(), "./2688_test/6479719.jpg")
     calcStdMean(image_path)
 
 

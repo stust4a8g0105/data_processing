@@ -45,8 +45,8 @@ def cv2_histogram_equalization_comparison(image_path, save_path):
 
 
 def main():
-    image_dir = os.path.join(os.getcwd(), '../Datasets/2688_ChestX_augmented_ultmax/ChestX_augmented/images/test')
-    save_dir = os.path.join(os.getcwd(), '../Datasets/histo_equalization/ChestX/images/test')
+    image_dir = os.path.join(os.getcwd(), '../Datasets/2688_ChestX_augmented_ultmax/ChestX_augmented/images/train')
+    save_dir = os.path.join(os.getcwd(), '../Datasets/histo_equalization/ChestX/images/train')
 
     image_paths = os.listdir(image_dir)
     for image_path in image_paths:

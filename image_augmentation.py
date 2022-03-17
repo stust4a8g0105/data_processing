@@ -1,7 +1,7 @@
 import os
 import math
 import cv2
-from coco_data_augmentation import spinImage
+from coco_and_image_augmentation import spinImage
 
 def image_augmentation(image_path, save_path, styles):
     image_file_names = []
@@ -32,8 +32,8 @@ def image_augmentation(image_path, save_path, styles):
 
 
 if __name__ == '__main__':
-    image_path = os.path.join(os.getcwd(), './unet_original/labels/ChestX_test')
-    save_path = os.path.join(os.getcwd(), './unet_augmented/labels/ChestX_test')
+    image_path = os.path.join(os.getcwd(), '../Datasets/K_Fold/2688_plus_ChestX_before_augmentation/4')
+    save_path = os.path.join(os.getcwd(), '../Datasets/K_Fold/2688_plus_ChestX_augmentation/4')
     styles = [[0, False], [5, False], [10, False], [-5, False], [-10, False], [0, True], [5, True], [10, True],
               [-5, True], [-10, True]]
     image_augmentation(image_path, save_path, styles)
