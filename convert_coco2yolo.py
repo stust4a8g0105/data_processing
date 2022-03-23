@@ -51,10 +51,10 @@ def convert_coco2yolo(image_path, json_path, save_path):
             with open(label_path, 'a') as label_f:
                 content = f"{category_id} {yolo_cx} {yolo_cy} {yolo_bbox_width} {yolo_bbox_height} \n"
                 label_f.write(content)
-                print(f"update {label_path}: ", content)
+                print(f"update {label_path}: ",  content)
 
 if __name__ == '__main__':
-    image_path = os.path.join(os.getcwd(), './2688_plus_ChestX_relabling_augmented/images/ChestX_test')
-    json_path = os.path.join(os.getcwd(), './2688_plus_ChestX_relabling_augmented/ChestX_test.json')
-    save_path = os.path.join(os.getcwd(), './2688_plus_ChestX_relabling_augmented/labels/ChestX_test')
+    image_path = os.path.join(os.getcwd(), '../Datasets/K_Fold/2688_plus_ChestX_histo_augmentation/4')
+    json_path = os.path.join(os.getcwd(), '../Datasets/K_Fold/2688_plus_ChestX_histo_augmentation/4.json')
+    save_path = os.path.join(os.getcwd(), '../Datasets/K_Fold/For_yolov5/labels/4')
     convert_coco2yolo(image_path, json_path, save_path)

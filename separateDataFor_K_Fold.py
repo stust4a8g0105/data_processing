@@ -21,8 +21,8 @@ def separateDataFor_K_Fold(whole_image_path, k_fold_save_path, K=5):
             print(f"saved image into {image_save_path}")
 
 def main():
-    whole_image_path = os.path.join(os.getcwd(), '../Datasets/2688_plus_ChestX_total')
-    k_fold_save_path = os.path.join(os.getcwd(), '../Datasets/K_Fold/2688_plus_ChestX')
+    whole_image_path = os.path.join(os.getcwd(), '../Datasets/2688_plus_ChestX_histo_total_without_augmentation')
+    k_fold_save_path = os.path.join(os.getcwd(), '../Datasets/K_Fold/2688_plus_ChestX_histo')
     K = 5
     separateDataFor_K_Fold(whole_image_path, k_fold_save_path, K)
 

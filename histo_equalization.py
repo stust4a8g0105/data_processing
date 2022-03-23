@@ -35,6 +35,7 @@ def cv2_histogram_equalization(image_path, save_path):
     equ = cv2.equalizeHist(img)
     converted_image = cv2.cvtColor(equ, cv2.COLOR_GRAY2RGB)
     cv2.imwrite(save_path, converted_image)
+    print(f"Processe and saved image {save_path}")
 
 def cv2_histogram_equalization_comparison(image_path, save_path):
     img = cv2.imread(image_path, 0)
@@ -45,8 +46,8 @@ def cv2_histogram_equalization_comparison(image_path, save_path):
 
 
 def main():
-    image_dir = os.path.join(os.getcwd(), '../Datasets/2688_ChestX_augmented_ultmax/ChestX_augmented/images/train')
-    save_dir = os.path.join(os.getcwd(), '../Datasets/histo_equalization/ChestX/images/train')
+    image_dir = os.path.join(os.getcwd(), '../Datasets/ChestX_test')
+    save_dir = os.path.join(os.getcwd(), '../Datasets/2688_plus_ChestX_histo_without_augmentation/ChestX_test')
 
     image_paths = os.listdir(image_dir)
     for image_path in image_paths:

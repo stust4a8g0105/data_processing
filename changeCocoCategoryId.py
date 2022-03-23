@@ -26,8 +26,8 @@ def changeCocoCategoryId(original_coco_path, save_path, new_id=1):
         print(f"Result saved to {save_path}")
 
 def main():
-    original_coco_path = os.path.join(os.getcwd(), '../Datasets/2688_plus_ChestX_relabling_augmented/val.json')
-    save_path = os.path.join(os.getcwd(), '../fracture_Yet-Another-EfficientDet-Pytorch/datasets/2688plusChestX_histo/annotations/instances_val.json')
+    original_coco_path = os.path.join(os.getcwd(), '../fracture_Yet-Another-EfficientDet-Pytorch/datasets/2688plusChestX/annotations/instances_val.json')
+    save_path = os.path.join(os.getcwd(), '../fracture_Yet-Another-EfficientDet-Pytorch/datasets/2688plusChestX/annotations/instances_val_changed.json')
     changeCocoCategoryId(original_coco_path, save_path)
 
 

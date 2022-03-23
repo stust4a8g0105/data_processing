@@ -1,7 +1,8 @@
 import os
 import cv2
+from imageExtNegotiate import imageExtNegotiate
 
-def yolo_calculateIOU(image_path, answer_label_path, result_label_path):
+def yolov5_calculateIOU(image_path, answer_label_path, result_label_path):
     image = cv2.imread(image_path)
     (H, W, _) = image.shape
     iou = 0
@@ -45,7 +46,7 @@ def yolo_calculateIOU(image_path, answer_label_path, result_label_path):
         iou = iou / len(answer_labels)
     return iou
 
-def yolo_calculateDice(image_path, answer_label_path, result_label_path):
+def yolov5_calculateDice(image_path, answer_label_path, result_label_path):
     image = cv2.imread(image_path)
     (H, W, _) = image.shape
     dice = 0
@@ -89,13 +90,25 @@ def yolo_calculateDice(image_path, answer_label_path, result_label_path):
         dice = dice / len(answer_labels)
     return dice
 
+
+# darknet result format
+# filename_without_ext  conf  ltx  lty  rbx  rby
+
+# answer in same folder with image, with same filename
+# format
+# class  center_x_ratio  center_y_ratio  width_ratio  height_ratio
+def darknet_calculateIOU(image_path, answer_label_path, result_label_path):
+    print('...')
+
+
+
 def main():
-    result_label_dir = os.path.join(os.getcwd(), '../yolov5/runs/detect/ChestX_use_2688/labels')
+    result_label_dir = os.path.join(os.getcwd(), '../yolov5/runs/detect/2688_plus_ChestX_relabling_histo_K_Fold_0__epoch_249_/labels')
     result_label_filenames = os.listdir(result_label_dir)
     # result_names = [ os.path.splitext(filename)[0] for filename in result_label_filenames]
 
-    answer_label_dir = os.path.join(os.getcwd(), '../Datasets/2688_ChestX_augmented_ultmax/2688_augmented/labels/test')
-    image_dir = os.path.join(os.getcwd(), '../Datasets/2688_ChestX_augmented_ultmax/2688_augmented/images/test')
+    answer_label_dir = os.path.join(os.getcwd(), '../Datasets/K_Fold/For_yolov5/K_Fold_0/2688_plus_ChestX_histo/labels/val')
+    image_dir = os.path.join(os.getcwd(), '../Datasets/K_Fold/For_yolov5/K_Fold_0/2688_plus_ChestX_histo/images/val')
 
     iou_cache = []
     dice_cache = []
@@ -106,12 +119,12 @@ def main():
 
     for result_label_filename in result_label_filenames:
         result_name = os.path.splitext(result_label_filename)[0]
-        image_path = os.path.join(image_dir, f'{result_name}.jpg')
+        image_path = imageExtNegotiate(os.path.join(image_dir, result_name))
         answer_label_path = os.path.join(answer_label_dir, f'{result_name}.txt')
         result_label_path = os.path.join(result_label_dir, f'{result_name}.txt')
 
-        iou = yolo_calculateIOU(image_path, answer_label_path, result_label_path)
-        dice = yolo_calculateDice(image_path, answer_label_path, result_label_path)
+        iou = yolov5_calculateIOU(image_path, answer_label_path, result_label_path)
+        dice = yolov5_calculateDice(image_path, answer_label_path, result_label_path)
 
         iou_cache.append({
             'filename': result_name,

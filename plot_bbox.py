@@ -1,5 +1,6 @@
 import cv2
 import os
+from convertYolov5Label2Yolov4 import negotiateImagePath
 
 
 def annotateRectangle(img_dir, label_dir, save_path, ext='png', color=(0, 255, 0)):
@@ -32,8 +33,10 @@ def annotateRectangle(img_dir, label_dir, save_path, ext='png', color=(0, 255, 0
             cv2.imwrite(image_save_path, image)
             print(f"saved result to {image_save_path}")
 
+
+
 if __name__ == '__main__':
-    img_dir = os.path.join(os.getcwd(), './yolov4_2688_plus_ChestX_relabling_histo/images/train')
-    label_dir = os.path.join(os.getcwd(), './2688_plus_ChestX_relabling_histo/labels/train')
-    save_path = os.path.join(os.getcwd(), './yolov4_2688_plus_ChestX_relabling_histo/images/train_ans')
-    annotateRectangle(img_dir, label_dir, save_path, ext='jpg', color=(0, 0, 255))
+    img_dir = os.path.join(os.getcwd(), '../fracture_darknet_yolov4/build/darknet/x64/results/2688plusChestX_lr_5e4/ChestX_test_10000_best')
+    label_dir = os.path.join(os.getcwd(), './2688_plus_ChestX_relabling_histo/labels/ChestX_test')
+    save_path = os.path.join(os.getcwd(), '../fracture_darknet_yolov4/build/darknet/x64/results/2688plusChestX_lr_5e4/prediction_and_answer/ChestX_test_10000_best')
+    annotateRectangle(img_dir, label_dir, save_path, ext='png', color=(0, 255, 0))

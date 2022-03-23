@@ -32,8 +32,8 @@ def image_augmentation(image_path, save_path, styles):
 
 
 if __name__ == '__main__':
-    image_path = os.path.join(os.getcwd(), '../Datasets/K_Fold/2688_plus_ChestX_before_augmentation/4')
-    save_path = os.path.join(os.getcwd(), '../Datasets/K_Fold/2688_plus_ChestX_augmentation/4')
+    image_path = os.path.join(os.getcwd(), '../Datasets/K_Fold/2688_plus_ChestX_histo_before_augmentation/4')
+    save_path = os.path.join(os.getcwd(), '../Datasets/K_Fold/2688_plus_ChestX_histo_augmentation/4')
     styles = [[0, False], [5, False], [10, False], [-5, False], [-10, False], [0, True], [5, True], [10, True],
               [-5, True], [-10, True]]
     image_augmentation(image_path, save_path, styles)

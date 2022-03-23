@@ -96,13 +96,50 @@ def separate_coco(train_img_path, val_img_path, test_img_path, json_path, save_p
             json.dump(coco_test_json, f, ensure_ascii=False, indent=4)
 
 
+def separateKFoldCoco(k_fold_image_folder, whole_coco_path, coco_save_path, k=5):
+    k_fold_image_portion_list = []
+    for i in range(k):
+        k_fold_image_portion_path = os.path.join(k_fold_image_folder, f"{i}")
+        k_fold_image_portion_list.append(os.listdir(k_fold_image_portion_path))
+
+    with open(whole_coco_path, encoding='utf-8') as json_f:
+        coco_all_json = json.load(json_f, )
+        coco_all_json_imgs = coco_all_json['images']
+        coco_all_json_annotations = coco_all_json['annotations']
+        for i, k_fold_image_portion in enumerate(k_fold_image_portion_list):
+            coco_portion_json = coco_all_json.copy()
+            coco_portion_json_imgs = []
+            coco_portion_json_annotations = []
+            coco_image_cache = {}
+
+            for coco_img in coco_all_json_imgs:
+                coco_image_filename = coco_img['file_name']
+                if coco_image_filename in k_fold_image_portion:
+                    coco_portion_json_imgs.append(coco_img)
+                    coco_image_cache[f"{coco_img['id']}"] = coco_img
+
+
+            for coco_annotation in coco_all_json_annotations:
+                coco_id = f"{coco_annotation['image_id']}"
+                if coco_id in coco_image_cache:
+                    coco_portion_json_annotations.append(coco_annotation)
+
+            coco_portion_json["images"] = coco_portion_json_imgs
+            coco_portion_json["annotations"] = coco_portion_json_annotations
+
+            coco_portion_save_path = os.path.join(coco_save_path, f"{i}.json")
+            with open(coco_portion_save_path, 'w', encoding='utf-8') as f:
+                json.dump(coco_portion_json, f, ensure_ascii=False, indent=4)
+                print(f"saved portion {i}")
+
+
+
+
 if __name__ == '__main__':
-    train_img_path = os.path.join(os.getcwd(), './ChestX_train')
-    val_img_path = os.path.join(os.getcwd(), './ChestX_val')
-    test_img_path = os.path.join(os.getcwd(), './ChestX_test')
+    k_fold_image_folder = os.path.join(os.getcwd(), '../Datasets/K_Fold/2688_plus_ChestX_augmentation')
+    whole_coco_path = os.path.join(os.getcwd(), '../Datasets/K_Fold/whole_annotation_data_augmented.json')
+    coco_save_path = os.path.join(os.getcwd(), '../Datasets/K_Fold/2688_plus_ChestX_augmentation')
+    k = 5
+    separateKFoldCoco(k_fold_image_folder, whole_coco_path, coco_save_path, k)
 
-    json_path = os.path.join(os.getcwd(), './ChestX_relabling/ChestX_relabling.json')
-
-    save_path = os.path.join(os.getcwd(), './ChestX_relabling/')
-
-    separate_coco(train_img_path, val_img_path, test_img_path, json_path, save_path, ext='.png')
+    # separate_coco(train_img_path, val_img_path, test_img_path, json_path, save_path, ext='.png')

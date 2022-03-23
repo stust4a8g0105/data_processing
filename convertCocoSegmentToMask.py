@@ -21,9 +21,14 @@ def convertCocoSegmentToMask(coco_path, mask_save_path):
             coco_image_shape = (coco_image_cache[f"{coco_annotation['image_id']}"]['height'], coco_image_cache[f"{coco_annotation['image_id']}"]['width'])
             coco_polygon = np.array(coco_segmentation).reshape((-1, 2))
             coco_polygon = coco_polygon.transpose() # shape: (2, n)
+            print(f"processing {coco_filename}")
             row = coco_polygon[1]
             column = coco_polygon[0]
             rr, cc = polygon(row, column)
+
+            # 若超出rr或cc超出範圍則設成 shape - 1
+            rr[rr >= coco_image_shape[0]] = coco_image_shape[0] - 1
+            cc[cc >= coco_image_shape[0]] = coco_image_shape[1] - 1
             if not os.path.exists(coco_mask_path):
                 mask_image = np.zeros(coco_image_shape)
                 mask_image[rr, cc] = 255
@@ -35,8 +40,8 @@ def convertCocoSegmentToMask(coco_path, mask_save_path):
                 cv2.imwrite(coco_mask_path, mask_image)
 
 def main():
-    coco_path = os.path.join(os.getcwd(), './2688_separated_jsons/test.json')
-    mask_save_path = os.path.join(os.getcwd(), './2688_test_mask')
+    coco_path = os.path.join(os.getcwd(), '../Datasets/K_Fold/2688_plus_ChestX_histo_augmentation/1.json')
+    mask_save_path = os.path.join(os.getcwd(), '../Datasets/K_Fold/2688_plus_ChestX_histo_augmentation/mask/1')
     convertCocoSegmentToMask(coco_path, mask_save_path)
 
 if __name__ == '__main__':
