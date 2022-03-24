@@ -1,6 +1,12 @@
 import os
 import cv2
+import sys
 from imageExtNegotiate import imageExtNegotiate
+
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(os.path.dirname(SCRIPT_DIR))
+
+
 
 def yolov5_calculateIOU(image_path, answer_label_path, result_label_path):
     image = cv2.imread(image_path)
@@ -138,7 +144,9 @@ def main():
         total_iou += iou
         total_dice += dice
 
-    print(iou_cache)
+    for iou_record in iou_cache:
+        print(iou_record)
+
     print("total iou: ", total_iou / n_answer)
     print("total dice: ", total_dice / n_answer)
 
