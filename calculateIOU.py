@@ -1,17 +1,14 @@
 import os
 import cv2
-import sys
 from imageExtNegotiate import imageExtNegotiate
-
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(os.path.dirname(SCRIPT_DIR))
-
+import numpy as np
 
 
 def yolov5_calculateIOU(image_path, answer_label_path, result_label_path):
     image = cv2.imread(image_path)
     (H, W, _) = image.shape
     iou = 0
+    answer_label_len = 0
     with open(answer_label_path, 'r') as answer_f, open(result_label_path, 'r') as result_f:
         answer_labels_str = answer_f.read()
         result_labels_str = result_f.read()
@@ -49,13 +46,22 @@ def yolov5_calculateIOU(image_path, answer_label_path, result_label_path):
 
                     iou += interArea / float(answerArea + resultArea - interArea)
 
-        iou = iou / len(answer_labels)
+    #判斷answer_labels最後一個元素是否為空字串(因為多一個換行!)
+    if not answer_labels[-1]:
+        answer_label_len = len(answer_labels) - 1
+    else:
+        answer_label_len = len(answer_labels)
+
+    iou = iou / answer_label_len
+
     return iou
+
 
 def yolov5_calculateDice(image_path, answer_label_path, result_label_path):
     image = cv2.imread(image_path)
     (H, W, _) = image.shape
     dice = 0
+    answer_label_len = 0
     with open(answer_label_path, 'r') as answer_f, open(result_label_path, 'r') as result_f:
         answer_labels_str = answer_f.read()
         result_labels_str = result_f.read()
@@ -92,9 +98,61 @@ def yolov5_calculateDice(image_path, answer_label_path, result_label_path):
                     resultArea = result_width * result_height
 
                     dice += (2 * interArea)/ float(answerArea + resultArea)
+    # 判斷answer_labels最後一個元素是否為空字串(因為多一個換行!)
+    if not answer_labels[-1]:
+        answer_label_len = len(answer_labels) - 1
+    else:
+        answer_label_len = len(answer_labels)
 
-        dice = dice / len(answer_labels)
+    dice = dice / answer_label_len
     return dice
+
+
+def yolov5_calculateIOU_using_intersection(image_path, answer_label_path, result_label_path):
+    image = cv2.imread(image_path)
+    (H, W, _) = image.shape
+    iou = 0
+    answer_label_region = np.zeros((H, W))
+    result_label_region = np.zeros((H, W))
+    answer_label_len = 0
+    with open(answer_label_path, 'r') as answer_f, open(result_label_path, 'r') as result_f:
+        answer_labels_str = answer_f.read()
+        result_labels_str = result_f.read()
+        answer_labels = answer_labels_str.split('\n')
+        result_labels = result_labels_str.split('\n')
+
+        for answer_label
+
+        # for result_label_str in result_labels:
+        #     for answer_label_str in answer_labels:
+        #         if answer_label_str and result_label_str:
+        #             answer_label = answer_label_str.split(' ')[1:5]
+        #             result_label = result_label_str.split(' ')[1:5]
+        #             answer_width = int(W * float(answer_label[2]))
+        #             answer_height = int(H * float(answer_label[3]))
+        #             answer_ltx = int(W * float(answer_label[0]) - (answer_width / 2))
+        #             answer_lty = int(H * float(answer_label[1]) - (answer_height / 2))
+        #             answer_rdx = int(W * float(answer_label[0]) + (answer_width / 2))
+        #             answer_rdy = int(H * float(answer_label[1]) + (answer_height / 2))
+        #
+        #             result_width = int(W * float(result_label[2]))
+        #             result_height = int(H * float(result_label[3]))
+        #             result_ltx = int(W * float(result_label[0]) - (result_width / 2))
+        #             result_lty = int(H * float(result_label[1]) - (result_height / 2))
+        #             result_rdx = int(W * float(result_label[0]) + (result_width / 2))
+        #             result_rdy = int(H * float(result_label[1]) + (result_height / 2))
+
+
+
+    #判斷answer_labels最後一個元素是否為空字串(因為多一個換行!)
+    if not answer_labels[-1]:
+        answer_label_len = len(answer_labels) - 1
+    else:
+        answer_label_len = len(answer_labels)
+
+    iou = iou / answer_label_len
+
+    return iou
 
 
 # darknet result format

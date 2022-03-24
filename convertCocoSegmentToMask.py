@@ -13,6 +13,9 @@ def convertCocoSegmentToMask(coco_path, mask_save_path):
         for coco_image in coco_images:
             coco_image_cache[f"{coco_image['id']}"] = {'width': coco_image['width'], 'height': coco_image['height'], 'file_name': coco_image['file_name']}
 
+            mask_image = np.zeros(coco_image.shape)
+            cv2.imwrite(mask_image, mask_image)
+
         coco_annotations = coco_dict['annotations']
         for coco_annotation in coco_annotations:
             coco_filename = coco_image_cache[f"{coco_annotation['image_id']}"]["file_name"]
@@ -29,15 +32,10 @@ def convertCocoSegmentToMask(coco_path, mask_save_path):
             # 若超出rr或cc超出範圍則設成 shape - 1
             rr[rr >= coco_image_shape[0]] = coco_image_shape[0] - 1
             cc[cc >= coco_image_shape[0]] = coco_image_shape[1] - 1
-            if not os.path.exists(coco_mask_path):
-                mask_image = np.zeros(coco_image_shape)
-                mask_image[rr, cc] = 255
-                cv2.imwrite(coco_mask_path, mask_image)
-            else:
-                mask_image = cv2.imread(coco_mask_path)
-                mask_image = cv2.cvtColor(mask_image, cv2.COLOR_BGR2GRAY)
-                mask_image[rr, cc] = 255
-                cv2.imwrite(coco_mask_path, mask_image)
+            mask_image = cv2.imread(coco_mask_path)
+            mask_image = cv2.cvtColor(mask_image, cv2.COLOR_BGR2GRAY)
+            mask_image[rr, cc] = 255
+            cv2.imwrite(coco_mask_path, mask_image)
 
 def main():
     coco_path = os.path.join(os.getcwd(), '../Datasets/K_Fold/2688_plus_ChestX_histo_augmentation/1.json')
