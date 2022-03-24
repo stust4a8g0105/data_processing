@@ -103,7 +103,7 @@ def darknet_calculateIOU(image_path, answer_label_path, result_label_path):
 
 
 def main():
-    result_label_dir = os.path.join(os.getcwd(), '../yolov5/runs/detect/2688_plus_ChestX_relabling_histo_K_Fold_0__epoch_249_/labels')
+    result_label_dir = os.path.join(os.getcwd(), '../yolov5/runs/detect/2688_plus_ChestX_relabling_histo_K_Fold_0_epoch_249_/labels')
     result_label_filenames = os.listdir(result_label_dir)
     # result_names = [ os.path.splitext(filename)[0] for filename in result_label_filenames]
 
