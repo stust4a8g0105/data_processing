@@ -36,7 +36,7 @@ def annotateRectangle(img_dir, label_dir, save_path, ext='png', color=(0, 255, 0
 
 
 if __name__ == '__main__':
-    img_dir = os.path.join(os.getcwd(), '../yolov5/runs/detect/2688_plus_ChestX_relabling_histo_K_Fold_0_epoch_249_')
-    label_dir = os.path.join(os.getcwd(), '../Datasets/K_Fold/For_yolov5/K_Fold_0/2688_plus_ChestX_histo/labels/val')
-    save_path = os.path.join(os.getcwd(), '../yolov5/runs/detect/2688_plus_ChestX_relabling_histo_K_Fold_0_epoch_249_/detect_with_answer')
+    img_dir = os.path.join(os.getcwd(), '../yolov5/runs/detect/2688_plus_ChestX_relabling_histo_K_Fold_4')
+    label_dir = os.path.join(os.getcwd(), '../Datasets/K_Fold/For_yolov5/K_Fold_4/2688_plus_ChestX_histo/labels/val')
+    save_path = os.path.join(os.getcwd(), '../yolov5/runs/detect/2688_plus_ChestX_relabling_histo_K_Fold_4/detect_with_answer')
     annotateRectangle(img_dir, label_dir, save_path, ext='png', color=(0, 255, 0))

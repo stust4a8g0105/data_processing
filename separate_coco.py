@@ -137,8 +137,8 @@ def separateKFoldCoco(k_fold_image_folder, whole_coco_path, coco_save_path, k=5)
 
 if __name__ == '__main__':
     k_fold_image_folder = os.path.join(os.getcwd(), '../Datasets/K_Fold/2688_plus_ChestX_augmentation')
-    whole_coco_path = os.path.join(os.getcwd(), '../Datasets/K_Fold/whole_annotation_data_augmented.json')
-    coco_save_path = os.path.join(os.getcwd(), '../Datasets/K_Fold/2688_plus_ChestX_augmentation')
+    whole_coco_path = os.path.join(os.getcwd(), '../Datasets/K_Fold/annotation_before_relabeling/whole.json')
+    coco_save_path = os.path.join(os.getcwd(), '../Datasets/K_Fold/annotation_before_relabeling')
     k = 5
     separateKFoldCoco(k_fold_image_folder, whole_coco_path, coco_save_path, k)
 

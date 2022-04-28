@@ -13,7 +13,7 @@ def convertCocoSegmentToMask(coco_path, mask_save_path):
         for coco_image in coco_images:
             coco_image_cache[f"{coco_image['id']}"] = {'width': coco_image['width'], 'height': coco_image['height'], 'file_name': coco_image['file_name']}
 
-            mask_image = np.zeros(coco_image.shape)
+            mask_image = np.zeros((coco_image['height'], coco_image['width']))
             cv2.imwrite(mask_image, mask_image)
 
         coco_annotations = coco_dict['annotations']
