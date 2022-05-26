@@ -65,7 +65,9 @@ def dataAugmentation_contrast_brightness(image_path, json_path, image_savePath, 
 
 
 
+
 if __name__ == '__main__':
+    # push
     image_path = os.path.join(os.getcwd(), "../Datasets/K_Fold/contrast_brightness_24times_before_augmentation/4")
     json_path = os.path.join(os.getcwd(), "../Datasets/K_Fold/contrast_brightness_24times_before_augmentation/4.json")
     image_savePath = os.path.join(os.getcwd(), "../Datasets/K_Fold/contrast_brightness_24times_augmentation/4")
