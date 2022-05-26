@@ -361,12 +361,12 @@ def yolov5_calculateIOU_with_threshold(image_path, answer_label_path, result_lab
 
 
 def main():
-    result_label_dir = os.path.join(os.getcwd(), '../yolov5/runs/detect/2688_plus_ChestX_relabling_without_histo_K_Fold_0/labels')
+    result_label_dir = os.path.join(os.getcwd(), '../yolov5/runs/detect/24times_augmentation_K_Fold_0/labels')
     result_label_filenames = os.listdir(result_label_dir)
     # result_names = [ os.path.splitext(filename)[0] for filename in result_label_filenames]
 
-    answer_label_dir = os.path.join(os.getcwd(), '../Datasets/K_Fold/For_yolov5/K_Fold_0/2688_plus_ChestX/labels/val')
-    image_dir = os.path.join(os.getcwd(), '../Datasets/K_Fold/For_yolov5/K_Fold_0/2688_plus_ChestX/images/val')
+    answer_label_dir = os.path.join(os.getcwd(), '../Datasets/K_Fold/24times_augmentation_for_yolov5/K_Fold_0/labels/val')
+    image_dir = os.path.join(os.getcwd(), '../Datasets/K_Fold/24times_augmentation_for_yolov5/K_Fold_0/images/val')
 
     iou_cache = []
     dice_cache = []

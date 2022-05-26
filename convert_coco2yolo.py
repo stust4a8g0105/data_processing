@@ -1,6 +1,7 @@
 import os
 import json
 import cv2
+from stripTextFinalLine import stripTextFinalLine
 
 def convert_coco2yolo(image_path, json_path, save_path):
     image_path_names = os.listdir(image_path)
@@ -41,20 +42,41 @@ def convert_coco2yolo(image_path, json_path, save_path):
             bbox_w = bbox[2]
             bbox_h = bbox[3]
 
-            yolo_cx = (lt_x + bbox_w / 2) / W
-            yolo_cy = (lt_y + bbox_h / 2) / H
+            yolo_cx = max(min((lt_x + bbox_w / 2) / W, 1), 0)
+            yolo_cy = max(min((lt_y + bbox_h / 2) / H, 1), 0)
             yolo_bbox_width = bbox_w / W
             yolo_bbox_height = bbox_h / H
+
+            if yolo_cx + (yolo_bbox_width / 2) > 1:
+                cropped_portion_x = yolo_cx + (yolo_bbox_width / 2) - 1
+                yolo_cx = yolo_cx - (cropped_portion_x / 2)
+                yolo_bbox_width = (1 - yolo_cx) * 2
+            if yolo_cx - (yolo_bbox_width / 2) < 0:
+                cropped_portion_x = abs(yolo_cx - (yolo_bbox_width / 2))
+                yolo_cx = yolo_cx + (cropped_portion_x / 2)
+                yolo_bbox_width = yolo_cx * 2
+
+            if yolo_cy + (yolo_bbox_height / 2) > 1:
+                cropped_portion_y = yolo_cy + (yolo_bbox_height / 2) - 1
+                yolo_cy = yolo_cy - (cropped_portion_y / 2)
+                yolo_bbox_height = (1 - yolo_cy) * 2
+            if yolo_cy - (yolo_bbox_height / 2) < 0:
+                cropped_portion_y = abs(yolo_cy - (yolo_bbox_height / 2))
+                yolo_cy = yolo_cy + (cropped_portion_y / 2)
+                yolo_bbox_height = yolo_cy * 2
 
             image_file_name = image_id_filename_mapper[f'{image_id}']
             label_path = os.path.join(save_path, f'{os.path.splitext(os.path.basename(image_file_name))[0]}.txt')
             with open(label_path, 'a') as label_f:
-                content = f"{category_id} {yolo_cx} {yolo_cy} {yolo_bbox_width} {yolo_bbox_height} \n"
+                content = f"{category_id} {yolo_cx} {yolo_cy} {yolo_bbox_width} {yolo_bbox_height}\n"
                 label_f.write(content)
                 print(f"update {label_path}: ",  content)
 
-if __name__ == '__main__':
-    image_path = os.path.join(os.getcwd(), '../Datasets/K_Fold/2688_plus_ChestX_histo_augmentation/4')
-    json_path = os.path.join(os.getcwd(), '../Datasets/K_Fold/2688_plus_ChestX_histo_augmentation/4.json')
-    save_path = os.path.join(os.getcwd(), '../Datasets/K_Fold/For_yolov5/labels/4')
+if __name__ == '__main__': # 0234
+    image_path = os.path.join(os.getcwd(), '../Datasets/K_Fold/24times_augmentation_for_yolov5/K_Fold_0/images/val')
+    json_path = os.path.join(os.getcwd(), '../Datasets/K_Fold/24times_augmentation/0.json')
+    save_path = os.path.join(os.getcwd(), '../Datasets/K_Fold/24times_augmentation_for_yolov5/K_Fold_0/labels/val')
     convert_coco2yolo(image_path, json_path, save_path)
+    # for filename in os.listdir(save_path):
+    #     filename = os.path.join(save_path, filename)
+    #     stripTextFinalLine(filename, save_path)

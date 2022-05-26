@@ -10,8 +10,8 @@ def merge_coco(coco_path1, coco_path2, save_path):
     category_oldID_newID_mapper2 = {}
     coco_image_id_counter = 1
     coco_annotation_id_counter = 1
-    image_width = 480
-    image_height = 640
+    image_width = 640
+    image_height = 480
     with open(coco_path1, encoding="utf-8") as coco_f1, open(coco_path2, encoding="utf-8") as coco_f2:
         # load json
         result_json = {}

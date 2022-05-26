@@ -4,6 +4,10 @@ from imageExtNegotiate import imageExtNegotiate
 
 
 def annotateRectangle(img_dir, label_dir, save_path, ext='png', color=(0, 255, 0)):
+
+    if not os.path.exists(save_path):
+        os.mkdir(save_path)
+
     # 取得所有label文字檔的路徑
     label_path = [os.path.join(label_dir, label) for label in os.listdir(label_dir) if label.endswith('.txt')]
 
@@ -36,7 +40,7 @@ def annotateRectangle(img_dir, label_dir, save_path, ext='png', color=(0, 255, 0
 
 
 if __name__ == '__main__':
-    img_dir = os.path.join(os.getcwd(), '../yolov5/runs/detect/2688_plus_ChestX_relabling_histo_K_Fold_4')
-    label_dir = os.path.join(os.getcwd(), '../Datasets/K_Fold/For_yolov5/K_Fold_4/2688_plus_ChestX_histo/labels/val')
-    save_path = os.path.join(os.getcwd(), '../yolov5/runs/detect/2688_plus_ChestX_relabling_histo_K_Fold_4/detect_with_answer')
+    img_dir = os.path.join(os.getcwd(), '../yolov5/runs/detect/24times_augmentation_K_Fold_0')
+    label_dir = os.path.join(os.getcwd(), '../Datasets/K_Fold/24times_augmentation_for_yolov5/K_Fold_0/labels/val')
+    save_path = os.path.join(os.getcwd(), '../yolov5/runs/detect/24times_augmentation_K_Fold_0/augmented_val_with_answer')
     annotateRectangle(img_dir, label_dir, save_path, ext='png', color=(0, 255, 0))
