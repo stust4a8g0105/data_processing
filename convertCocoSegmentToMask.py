@@ -14,7 +14,8 @@ def convertCocoSegmentToMask(coco_path, mask_save_path):
             coco_image_cache[f"{coco_image['id']}"] = {'width': coco_image['width'], 'height': coco_image['height'], 'file_name': coco_image['file_name']}
 
             mask_image = np.zeros((coco_image['height'], coco_image['width']))
-            cv2.imwrite(mask_image, mask_image)
+            coco_mask_path = os.path.join(mask_save_path, coco_image["file_name"])
+            cv2.imwrite(coco_mask_path, mask_image)
 
         coco_annotations = coco_dict['annotations']
         for coco_annotation in coco_annotations:
